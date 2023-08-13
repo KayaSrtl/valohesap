@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Valorant Hesap Kasma</title>
+<meta name="Viewpoint" content="Width=device-width,initial-scale=1.0">
+<link rel="shortcut icon" type="image/x-icon" href="Web_Files/valo_icon.ico" />
+<link rel="stylesheet" href="Web_Files/style.css">
+<script src="Web_Files/nickler.js"></script>
+<style>
+
+body {
+             
+              font-family: 'Oswald', sans-serif;
+      }
+.main_div {
+	left: 30px;
+position: absolute;
+background: none;
+}
+
+.nick {
+
+}
+
+.password {
+display: none;
+}
+
+.nick_button,  .password_button{
+font-family: 'Oswald', sans-serif;
+background-color: #4CAF50; /* Green */
+  border: 1px solid green;
+  color: white;
+  padding: 16px 34px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18.9px;
+  cursor: pointer;
+}
+
+.nick_button_div {
+float: left;
+}
+
+.nick_button:hover {
+  background-color: #3e8e41;
+}
+
+.nick_button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+.clicked_button {
+color: black !important;
+}
+
+.password_button {
+	background-color: red !important;
+}
+
+</style>
+</head>
+
+<body>
+
+	<input type="checkbox" id="toggle" class="toggle--checkbox" checked>
+	<label for="toggle" class="toggle--label">
+		<span class="toggle--label-background"></span>
+	</label>
+
+	<div class="main_div">
+		<button class="button-82-pushable" role="button" onclick="resetClickedButtons()">
+			<span class="button-82-shadow"></span>
+			<span class="button-82-edge"></span>
+			<span class="button-82-front text">
+				Reset
+			</span>
+		</button>
+		<button class="button-82-pushable" role="button" onclick="generatePassword()">
+			<span class="button-82-shadow"></span>
+			<span class="button-82-edge"></span>
+			<span class="button-82-front text">
+				Random Pass
+			</span>
+		</button>
+		<p id="s31" class="password">1454554454</p>
+		<button class="button-82-pushable" role="button" onclick="submitJSON()">
+			<span class="button-82-shadow"></span>
+			<span class="button-82-edge"></span>
+			<span class="button-82-front text">
+				Submit Changes
+			</span>
+		</button>
+		<h1><a href="https://auth.riotgames.com/login#acr_values=urn%3Ariot%3Agold&client_id=accountodactyl-prod&redirect_uri=https%3A%2F%2Faccount.riotgames.com%2Foauth2%2Flog-in&response_type=code&scope=openid%20email%20profile%20riot%3A%2F%2Friot.atlas%2Faccounts.edit%20riot%3A%2F%2Friot.atlas%2Faccounts%2Fpassword.edit%20riot%3A%2F%2Friot.atlas%2Faccounts%2Femail.edit%20riot%3A%2F%2Friot.atlas%2Faccounts.auth%20riot%3A%2F%2Fthird_party.revoke%20riot%3A%2F%2Fthird_party.query%20riot%3A%2F%2Fforgetme%2Fnotify.write%20riot%3A%2F%2Friot.authenticator%2Fauth.code%20riot%3A%2F%2Friot.authenticator%2Fauthz.edit%20riot%3A%2F%2Frso%2Fmfa%2Fdevice.write%20riot%3A%2F%2Friot.authenticator%2Fidentity.add&state=65291fdb-6f83-43c4-a79d-ce257d09440a&ui_locales=tr" target="_blank">Valorant Hesap</a> Kasma Servisi</h1>
+		<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+		<br>
+		<h2>Hesap adları</h2> <button class="button-82-pushable" role="button" onclick="editLower20acc()">
+			<span class="button-82-shadow"></span>
+			<span class="button-82-edge"></span>
+			<span class="button-82-front text">
+				Edit
+			</span>
+		</button>
+<button class="button-82-pushable" role="button" onclick="editLower20acc()">
+			<span class="button-82-shadow"></span>
+			<span class="button-82-edge"></span>
+			<span class="button-82-front text">
+				Add Account
+			</span>
+		</button>
+
+		<div class="all_nick_buttons">
+			<div class="nick_button_div" id="nick_button_0"><button onclick="copyToClipboard('#h0')" class="nick_button" id="h0">nickname</button></div>
+
+			<!--<script>
+
+
+
+
+				for (let i = 0; i < nickname.length; i++) {
+					document.write("<div class=\"nick_button_div\"><button onclick=\"copyToClipboard('#h" + (i + 1) + "')\" class=\"nick_button\" id=\"h" + (i + 1) + "\">" + nickname[i] + "</button></div>");
+					if (is_sellected[i])
+						$('#h' + (i + 1)).css('background-color', 'red');
+				}
+
+
+			</script>-->
+			<!--<div class="nick_button_div">
+		<button onclick="copyToClipboard('#h23')" class="nick_button" id="h23">valoo553</button>
+		</div>-->
+
+
+		</div>
+
+		<h2 style="clear:both">Hesap şifresi</h2>	
+		<p id="s1" class="password">1q3w4e5r</p>
+		<button onclick="copyToClipboardPass('#s1')" class="password_button">Şifreyi Kopyala(1q3w4e5r)</button>
+
+
+
+		<br>
+		<h2 style="clear:both">Tilt Etme</h2>
+		<p id="EZ" style="display:none;">KARINCAİNCİTMEZ, KURŞUNGEÇİRMEZ, ANTRPARANTEZ, İYİLİKBİLMEZ, KARINCAEZMEZ, PARTENOGENEZ, SÖZÜNÜBİLMEZ, DEĞERBİLMEZ, DUDAKDEĞMEZ, KADİRBİLMEZ, KARGASEKMEZ, SÖZGÖTÜRMEZ, FOTOSENTEZ, HIDIRELLEZ, İNTERKİNEZ, KARYOKİNEZ, SUGÖTÜRMEZ, BEKLENMEZ, BİLİNEMEZ, FİLOGENEZ, GÜNGÖRMEZ, HALETİNEZ, LEBDEĞMEZ, ONTOGENEZ, RENKSEMEZ, BALYEMEZ, BENZEMEZ, BİLİNMEZ, BÖLÜNMEZ, DEĞİŞMEZ, EPİGENEZ, GÖRÜNMEZ, HÜRYEMEZ, KERKENEZ, MANGANEZ, MÜCEHHEZ, PARANTEZ, TÜKENMEZ, VARYEMEZ, BALYEMEZ, BENZEMEZ, BİLİNMEZ, BÖLÜNMEZ, DEĞİŞMEZ, EPİGENEZ, GÖRÜNMEZ, HÜRYEMEZ, KERKENEZ, MANGANEZ, MÜCEHHEZ, PARANTEZ, TÜKENMEZ, VARYEMEZ, ANÇÜEZ, ÇERKEZ, ERİMEZ, FERNEZ, GEÇMEZ, GÖRMEZ, KÖRFEZ, MENFEZ, MERKEZ, MÜFREZ, PEKMEZ, PROTEZ, SENTEZ, TRAPEZ, ÇEPEZ, ÇEREZ, ÇÖMEZ, DİYEZ, EĞREZ, FALEZ, FİREZ, GÜVEZ, KEPEZ, MELEZ, ORTEZ, ÖLMEZ, PÜNEZ, ENEZ, OBEZ, ÜVEZ, BEZ, GEZ, KEZ, TEZ</p>
+		<button onclick="copyToClipboard('#EZ')" class="password_button">EZ KOPYALA</button>
+		<button onclick="getStorage()" class="password_button">get storage</button>
+		<p style="color: white;">Kitty#3179</p>
+		<br>
+		<p id="cross1" style="display:none;">0;s;1;P;c;5;h;0;m;1;0l;4;0o;2;0a;1;0f;0;1b;0;S;c;4;o;1</p>
+		<button onclick="copyToClipboard('#cross1')" class="password_button">Cross 1 KOPYALA</button>
+		<p id="cross2" style="display:none;">0;P;c;5;h;0;f;0;0l;4;0o;2;0a;1;0f;0;1t;0;1l;0;1o;0;1a;0;1m;0;1f;0</p>
+		<button onclick="copyToClipboard('#cross2')" class="password_button">Cross 2 KOPYALA</button>
+		<button onclick="copyToClipboard('#main_nick_1')" class="password_button" id="main_nick_1">hasanlorex</button>
+		<button onclick="copyToClipboard('#main_mail_addr_1')" class="password_button" id="main_mail_addr_1">valoranthesap2771@gmail.com</button>
+		<br>
+		<button onclick="window.open('https://www.youtube.com/feed/history','_blank')" class="password_button">YouTube History</button>
+		<button onclick="window.open('https://youtu.be/oZ-3Est4T4U?list=PLVNYC5bGKd52BoOD2QKZf9rxlehq_bh4j&t=7865','_blank')" class="password_button">YouTube C video</button>
+		<button onclick="copyToClipboard('#main_nick_pass_1')" class="password_button" id="main_nick_pass_1">adacık123</button>
+		<button onclick="copyToClipboard('#main_mail_pass_1')" class="password_button" id="main_mail_pass_1">CHNmn#BbdeV+9Q</button>
+		<br>
+		<h2 style="color: white;">20 Level Üstü Hesaplar</h2>
+		<!--<div class="upper20_accounts">
+			<div class="nick_and_pass_button">
+				<div class="nick_part" onclick="copyToClipboardPass('#m20')" id="m20">nickname</div>
+				<div class="pass_part" onclick="copyToClipboardPass('#p20')" id="p20">pass</div>
+			</div>
+			<div class="nick_and_pass_button">
+				<div class="nick_part" onclick="copyToClipboardPass('#m20')" id="m20">nickname</div>
+				<div class="pass_part" onclick="copyToClipboardPass('#p20')" id="p20">pass</div>
+			</div>
+		</div>-->
+		<div class="upper20_accounts">
+		<!--<script>
+			
+			for (let i = 1; i <= upper20lvlacc.length; i++) {
+				if(!upper20lvlacc[i - 1].isSold)
+					document.write("<div class=\"nick_and_pass_button\"><div class=\"nick_part\" onclick=\"copyToClipboardPass('#m" + (i + 1) + "')\" id=\"m" + (i + 1) + "\">" + upper20lvlacc[i - 1].nickname + "</div><div class=\"pass_part\" onclick=\"copyToClipboardPass('#p" + (i + 1) + "')\" id=\"p" + (i + 1) + "\">" + upper20lvlacc[i - 1].password + "</div></div>");
+				//document.write("<div class=\"nick_and_pass_button\"><div class=\"nick_part\" onclick=\"copyToClipboardPass('#m" + (i + 1) + "')\" id=\"m" + (i + 1) + "\">" + nickname20lvl[i - 1] + "</div><div class=\"pass_part\" onclick=\"copyToClipboardPass('#p" + (i + 1) + "')\" id=\"p" + (i + 1) + "\">" + nickname20lvlpassword[i-1] + "</div></div>");
+				//document.write("<div class=\"nick_button_div\"><button onclick=\"copyToClipboard('#m" + (i + 1) + "', 'true')\" class=\"nick_button\" id=\"m" + (i + 1) + "\">" + nickname20lvl[i - nickname.length] + "</button></div>");
+			}
+		</script>-->
+		<div class="nick_and_pass_button" id="nick_and_pass_button_0"><div class="nick_part" onclick="copyToClipboardPass('#m0')" id="m0">ston4342</div><div class="pass_part" onclick="copyToClipboardPass('#p0')" id="p0">1q3w4e5r</div></div>
+		</div>
+		<style>
+			.upper20_accounts {
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.nick_and_pass_button {
+				width: 330px;
+				background: #4caf50;
+				display: flex;
+				text-align: center;
+				font-size: 18.9px;
+				cursor: pointer;
+				border: 2px solid green;
+				color: white;
+				overflow: hidden;
+			}
+			
+			.nick_part {
+				width: 50%;
+				padding: 15px 30px;
+				
+			}
+			
+			.pass_part {
+				width: 50%;
+				padding: 15px 30px;
+			}
+			.pass_part:hover {
+				background: rgb(239 73 73 / 50%);
+			}
+			.nick_part:hover {
+				background: rgb(73 239 170 / 50%);
+			}
+		</style>
+		<!--<script>
+
+
+			//var storedAry = JSON.parse($.cookie(nicknameC));
+			document.write("<div class=\"nick_main_div\">");
+			for (let i = nickname.length; i < nickname20lvl.length + nickname.length; i++) {
+				document.write("<div class=\"nick_button_div\"><button onclick=\"copyToClipboard('#m" + (i + 1) + "', 'true')\" class=\"nick_button\" id=\"m" + (i + 1) + "\">" + nickname20lvl[i - nickname.length] + "</button></div>");
+			}
+			document.write("</div><br>");
+			document.write("<div class=\"pass_main_div\">");
+			var my_experement = "/ ";
+			for (let i = 1; i < nickname20lvl.length + 1; i++) {
+				document.write("<div class=\"nick_button_div\"><button onclick=\"copyToClipboardPass('#p" + i + "')\" class=\"nick_button\" id=\"p" + (i) + "\">" + nickname20lvlpassword[i-1] + "</button></div>");
+				var width_temp = $("#p" + i).css("width").substr(0, $("#p" + i).css("width").length-2);
+				//alert(width_temp);
+				//$('#m' + (i+nickname.length)).css("padding-left", 1);
+				//$('#m' + (i+nickname.length)).css("padding-right", 1);
+				
+				//$('#m' + (i+nickname.length)).css("width", width_temp - 37);
+				
+				
+				my_experement += width_temp + " / ";
+			}
+			document.write("</div>");
+				//alert(my_experement);
+		</script>-->
+	</div>
+	<div class="background"></div>
+	<script>
+
+		function copyToClipboardPass(element) {
+			var $temp = $("<input>");
+			$("body").append($temp);
+			$temp.val($(element).text()).select();
+			document.execCommand("copy");
+			$temp.remove();
+		}
+	</script>
+</body>
+
+
+
+</html>
+
