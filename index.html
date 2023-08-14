@@ -72,7 +72,17 @@ color: black !important;
 	<label for="toggle" class="toggle--label">
 		<span class="toggle--label-background"></span>
 	</label>
-
+<div class="add_edit_account_outer">
+	<div class="add_edit_account_inner">
+		<h2 class="Account_Adding_info">Old Password: Password</h2>
+		<p>Nickname: </p>
+	 	<input type="text" id="AccountNameInput">
+		<p>Password: </p>
+	 	<input type="text" id="AccountPassInput">
+		<div><input type="checkbox" id="isUpper20checkbox" name="isUpper20" value="accountlevel"><label for="accountlevel"> Upper 20 Level</label></div>
+	</div>
+	<button class="" onclick="SubmitAccountAdding()">Submit</button>
+</div>
 	<div class="main_div">
 		<button class="button-82-pushable" role="button" onclick="resetClickedButtons()">
 			<span class="button-82-shadow"></span>
@@ -105,20 +115,20 @@ color: black !important;
 				Reset Key
 			</span>
 		</button>
-		<h1><a href="https://auth.riotgames.com/login#acr_values=urn%3Ariot%3Agold&client_id=accountodactyl-prod&redirect_uri=https%3A%2F%2Faccount.riotgames.com%2Foauth2%2Flog-in&response_type=code&scope=openid%20email%20profile%20riot%3A%2F%2Friot.atlas%2Faccounts.edit%20riot%3A%2F%2Friot.atlas%2Faccounts%2Fpassword.edit%20riot%3A%2F%2Friot.atlas%2Faccounts%2Femail.edit%20riot%3A%2F%2Friot.atlas%2Faccounts.auth%20riot%3A%2F%2Fthird_party.revoke%20riot%3A%2F%2Fthird_party.query%20riot%3A%2F%2Fforgetme%2Fnotify.write%20riot%3A%2F%2Friot.authenticator%2Fauth.code%20riot%3A%2F%2Friot.authenticator%2Fauthz.edit%20riot%3A%2F%2Frso%2Fmfa%2Fdevice.write%20riot%3A%2F%2Friot.authenticator%2Fidentity.add&state=65291fdb-6f83-43c4-a79d-ce257d09440a&ui_locales=tr" target="_blank">Valorant Hesap</a> Kasma Servisi</h1>
+		<h1><a href="https://auth.riotgames.com/login" target="_blank">Valorant Hesap</a> Kasma Servisi</h1>
 		<hr style="height:2px;border-width:0;color:gray;background-color:gray">
 		<br>
-		<h2>Hesap adları</h2> <button class="button-82-pushable" role="button" onclick="editLower20acc()">
+		<h2>Hesap adları</h2> <button class="button-82-pushable" role="button" onclick="editAccs()">
 			<span class="button-82-shadow"></span>
 			<span class="button-82-edge"></span>
-			<span class="button-82-front text">
+			<span class="button-82-front text" id="editAccText">
 				Edit
 			</span>
 		</button>
-<button class="button-82-pushable" role="button" onclick="editLower20acc()">
+<button class="button-82-pushable" role="button" onclick="addNewAccount()">
 			<span class="button-82-shadow"></span>
 			<span class="button-82-edge"></span>
-			<span class="button-82-front text">
+			<span class="button-82-front text"  id="AddAccountBtnTxt">
 				Add Account
 			</span>
 		</button>
@@ -128,13 +138,16 @@ color: black !important;
 				<div class="nick_button_press_part_outer">
 					<p id="ln0" style="display: none;" class="nicktextlower20">nickname</p>
 					<p id="lp0" style="display: none;" class="passtextlower20">password</p>
-					<div class="nick_button_press_part_inner changecolorpart" onclick="setChange(0)">
+					<div class="nick_button_press_part_inner deleteelementpart" onclick="setChange('#ld0')">
+						<i class="fa-solid fa-xmark lower20icons"></i>
+					</div>
+					<div class="nick_button_press_part_inner changecolorpart" onclick="setChange('#lc0')">
 						<i class="fa-solid fa-arrows-retweet lower20icons"></i>
 					</div>
-					<div class="nick_button_press_part_inner copynicknamepart" onclick="copyToClipboard('#ln0')">
+					<div class="nick_button_press_part_inner copynicknamepart" onclick="UserIcon('#ln0')">
 						<i class="fa-solid fa-user lower20icons"></i>
 					</div>
-					<div class="nick_button_press_part_inner copypasspart" onclick="copyToClipboard('#lp0')">
+					<div class="nick_button_press_part_inner copypasspart" onclick="PasswordIcon('#lp0')">
 						<i class="fa-regular fa-key-skeleton lower20icons"></i>
 					</div>
 				</div>
@@ -183,43 +196,29 @@ color: black !important;
 				//document.write("<div class=\"nick_and_pass_button\"><div class=\"nick_part\" onclick=\"copyToClipboardPass('#m" + (i + 1) + "')\" id=\"m" + (i + 1) + "\">" + nickname20lvl[i - 1] + "</div><div class=\"pass_part\" onclick=\"copyToClipboardPass('#p" + (i + 1) + "')\" id=\"p" + (i + 1) + "\">" + nickname20lvlpassword[i-1] + "</div></div>");
 				//document.write("<div class=\"nick_button_div\"><button onclick=\"copyToClipboard('#m" + (i + 1) + "', 'true')\" class=\"nick_button\" id=\"m" + (i + 1) + "\">" + nickname20lvl[i - nickname.length] + "</button></div>");
 			}
-		</script>-->
-		<div class="nick_and_pass_button" id="nick_and_pass_button_0"><div class="nick_part" onclick="copyToClipboard('#m0')" id="m0">ka</div><div class="pass_part" onclick="copyToClipboard('#p0')" id="p0">denemesifre</div></div>
+		</script>
+		<div class="nick_and_pass_button" id="nick_and_pass_button_0"><div class="nick_part" onclick="copyToClipboard('#m0')" id="m0">ka</div><div class="pass_part" onclick="copyToClipboard('#p0')" id="p0">denemesifre</div></div>-->
+			
+			
+			<div class="nick_and_pass_button" id="nick_and_pass_button_0"><button class="nick_button" id="u0">nickname</button>
+				<div class="upper20_button_press_part_outer">
+					<p id="un0" style="display: none;" class="nicktextupper20">nickname</p>
+					<p id="up0" style="display: none;" class="passtextupper20">password</p>
+					<div class="nick_button_press_part_inner deleteelementpart" onclick="setChange('#ld0')">
+						<i class="fa-solid fa-xmark upper20icons"></i>
+					</div>
+					<div class="upper20_button_press_part_inner changeupper20part" onclick="setChange('#uc0')">
+						<i class="fa-solid fa-arrows-retweet upper20icons"></i>
+					</div>
+					<div class="upper20_button_press_part_inner copyupper20nicknamepart" onclick="UserIcon('#un0')">
+						<i class="fa-solid fa-user upper20icons"></i>
+					</div>
+					<div class="upper20_button_press_part_inner copyupper20passpart" onclick="PasswordIcon('#up0')">
+						<i class="fa-regular fa-key-skeleton upper20icons"></i>
+					</div>
+				</div>
+			</div>
 		</div>
-		<style>
-			.upper20_accounts {
-				display: flex;
-				flex-wrap: wrap;
-			}
-			.nick_and_pass_button {
-				width: 330px;
-				background: #4caf50;
-				display: flex;
-				text-align: center;
-				font-size: 18.9px;
-				cursor: pointer;
-				border: 2px solid green;
-				color: white;
-				overflow: hidden;
-			}
-			
-			.nick_part {
-				width: 50%;
-				padding: 15px 30px;
-				
-			}
-			
-			.pass_part {
-				width: 50%;
-				padding: 15px 30px;
-			}
-			.pass_part:hover {
-				background: rgb(239 73 73 / 50%);
-			}
-			.nick_part:hover {
-				background: rgb(73 239 170 / 50%);
-			}
-		</style>
 		<!--<script>
 
 
