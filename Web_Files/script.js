@@ -1,76 +1,127 @@
-//All rights belong to Kaya Sertel
 const GITkeyCookieName = "gitkeycookie";
 var gitkeyData;
 const is_sellected = [false];
 
-/*let headers = new Headers();
-headers.append("Authorization", "Bearer " + readCookie(GITkeyCookieName));
+var countlover20acc = 0;
+const nicknameS = "clikedButtons";
+const time_char_lenght = 6;
+var jsonData;
 
-fetch("https://api.github.com/repos/KayaSrtl/valohesapdata/contents/data.json", { headers })
-    .then(response => response.json())
-    .then(data => {
-        let JSONDATA = JSON.parse(atob(data.content));
-		
-		console.log(JSONDATA.length);
-		//writeJSON(JSONDATA);
-    })
-    .catch(error => console.log(error));
-	*/
+const sec = 1000;
+const minute = sec * 60;
+const hour = minute * 60;
+const day = hour * 24;
+const year = day * 365;
+
+const d = new Date();
+
+
+
+/*function fetching() {
+    const headers = new Headers();
+    //var apiKey = readCookie(GITkeyCookieName); // Replace with your actual GitHub API key
+    headers.append("Authorization", "Bearer " + apiKey);
+
+    fetch("https://api.github.com/repos/KayaSrtl/valohesapdata/contents/main/data.json", { headers })
+        .then(response => response.json())
+        .then(data => {
+            const content = data.content;
+            const decodedContent = atob(content);
+            const JSONDATA = JSON.parse(decodedContent);
+            
+            console.log(JSONDATA.length);
+            //writeJSON(JSONDATA);
+        })
+        .catch(error => console.log(error));
+}*/
+
+function fetching() {
+    //const apiKey = "ghp_asdafadgsfgadfadsadasd"; // Replace with your actual GitHub API key
+    const apiKey = readCookie(GITkeyCookieName); // Replace with your actual GitHub API key
+    const repoOwner = "KayaSrtl";
+    const repoName = "valohesapdata";
+    const filePath = "data.json";
+    const branchName = "main";
+
+    const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}?ref=${branchName}`;
+    
+    const headers = new Headers();
+    headers.append("Authorization", `Bearer ${apiKey}`);
+
+    fetch(url, { headers })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`Request failed with status: ${response.status}`);
+            }
+        })
+        .then(data => {
+            const content = data.content;
+            const decodedContent = atob(content);
+            jsonData = JSON.parse(decodedContent);
+		listingAcc(jsonData);
+        })
+        .catch(error => console.log(error));
+}
+
+
 	
-function writeJSON(JSONobj) {
-	let index = 0;
-	let indexlower20 = 0;
-	let indexupper20 = 0;
-
-	/*for(let i = 0; i < nickname.length; i++) {
-		if(1) {
+function listingAcc(JSONobj) {
+	var index = 0;
+	
+	for(let i = 0; i < JSONobj.account.lower20lvl.length; i++) {
+		if(!JSONobj.account.lower20lvl[i].isSold) {
 			if(index > 0) {
 				$( '#nick_button_' + (index - 1)).clone().appendTo( ".all_nick_buttons" ).prop('id', 'nick_button_' + index);
 
 			}
 			//$('#nick_button_' + index + " .nick_button").text(JSONobj[i].nickname).attr('onclick','copyToClipboardPass(\'#h' + index + '\')').attr('id','h' + index);
-			$('#nick_button_' + index + " .nick_button").text(nickname[i]).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
+			$('#nick_button_' + index + " .nick_button").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
+			
+			$('#nick_button_' + index + " .nick_button_press_part_outer .changecolorpart").attr('onclick','setChange(' + index + ')');
+			$('#nick_button_' + index + " .nick_button_press_part_outer .nicktextlower20").text(JSONobj.account.lower20lvl[i].nickname).attr('id','ln' + index);
+			$('#nick_button_' + index + " .nick_button_press_part_outer .passtextlower20").text(JSONobj.account.lower20lvl[i].password).attr('id','lp' + index);
+			
+			$('#nick_button_' + index + " .nick_button_press_part_outer .copynicknamepart").attr('onclick','copyToClipboard(\'#ln' + index + '\')');
+			$('#nick_button_' + index + " .nick_button_press_part_outer .copypasspart").attr('onclick','copyToClipboard(\'#lp' + index + '\')');
+			//$('#nick_button_' + index + " .nick_button_press_part_outer").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
+			if(JSONobj.account.lower20lvl[i].lastplayhour + 22 > Math.round(d.getTime() / hour))
+				$('#h' + (index)).css('background-color', 'red');
+			else
+				$('#h' + (index)).css('background-color', '');
 			//$('#nick_and_pass_button_' + index + " .pass_part").text(JSONobj[i].password).attr('onclick','copyToClipboardPass(\'#p' + index + '\')').attr('id','p' + index);
 			index++;
 		}
-	}*/
+	}
 	
-	for(let i = 0; i < JSONobj.length; i++) {
-		if(!JSONobj[i].isSold && !JSONobj[i].isUpper20) {
-			if(indexlower20 > 0) {
-				$( '#nick_button_' + (indexlower20 - 1)).clone().appendTo( ".all_nick_buttons" ).prop('id', 'nick_button_' + indexlower20);
+	index = 0;
+	
+	for(let i = 0; i < JSONobj.account.upper20lvl.length; i++) {
+		if(!JSONobj.account.upper20lvl[i].isSold) {
+			if(index > 0) {
+				$( '#nick_and_pass_button_' + (index - 1)).clone().appendTo( ".upper20_accounts" ).prop('id', 'nick_and_pass_button_' + index);
 
 			}
-			//$('#nick_button_' + index + " .nick_button").text(JSONobj[i].nickname).attr('onclick','copyToClipboardPass(\'#h' + index + '\')').attr('id','h' + index);
-			$('#nick_button_' + indexlower20 + " .nick_button").text(JSONobj[i].nickname).attr('onclick','copyToClipboard(\'#h' + indexlower20 + '\')').attr('id','h' + indexlower20);
-			//$('#nick_and_pass_button_' + index + " .pass_part").text(JSONobj[i].password).attr('onclick','copyToClipboardPass(\'#p' + index + '\')').attr('id','p' + index);
-			indexlower20++;
-		}
-		if(!JSONobj[i].isSold && JSONobj[i].isUpper20) {
-			if(indexupper20 > 0) {
-				$( '#nick_and_pass_button_' + (indexupper20 - 1)).clone().appendTo( ".upper20_accounts" ).prop('id', 'nick_and_pass_button_' + indexupper20);
-
-			}
-			$('#nick_and_pass_button_' + indexupper20 + " .nick_part").text(JSONobj[i].nickname).attr('onclick','copyToClipboardPass(\'#m' + indexupper20 + '\')').attr('id','m' + indexupper20);
-			$('#nick_and_pass_button_' + indexupper20 + " .pass_part").text(JSONobj[i].password).attr('onclick','copyToClipboardPass(\'#p' + indexupper20 + '\')').attr('id','p' + indexupper20);
-			indexupper20++;
-			console.log(indexupper20);
+			$('#nick_and_pass_button_' + index + " .nick_part").text(JSONobj.account.upper20lvl[i].nickname).attr('onclick','copyToClipboard(\'#m' + index + '\')').attr('id','m' + index);
+			$('#nick_and_pass_button_' + index + " .pass_part").text(JSONobj.account.upper20lvl[i].password).attr('onclick','copyToClipboard(\'#p' + index + '\')').attr('id','p' + index);
+			index++;
 		}
 	}
 }
 
-const jsonData = {
+/*const jsonData = {
   "account": {
     "upper20lvl": [
       {
 			"nickname": "NicknameUpperLvl1",
 			"password": "PasswordUpperLvl1",
-			"isSold": true
+			"isSold": false
 	  },
       {
 			"nickname": "NicknameUpperLvl2",
 			"password": "PasswordUpperLvl2",
-			"isSold": true
+			"isSold": false
       }
     ],
     "lower20lvl": [
@@ -78,25 +129,34 @@ const jsonData = {
 		  	"nickname": "NicknameLowerLvl1",
 		  	"password": "PasswordLowerLvl1",
 			"isSold": false,
-			"isplayed": true,
-			"lastplayhour": 198475
+			"lastplayhour": 0
 	  },
       {
 			"nickname": "NicknameLowerLvl2",
 			"password": "PasswordLowerLvl2",
 			"isSold": false,
-			"isplayed": true,
-			"lastplayhour": 198302
+			"lastplayhour": 0
       }
     ]
   }
-};
+};*/
 
 
 
 
 
-const newNickname = "NewNickname";
+
+
+
+
+
+$( document ).ready(function() {
+	
+	fetching();
+	
+	
+	
+	/*const newNickname = "NewNickname";
 jsonData.account.upper20lvl.push({ "nickname": newNickname });
 jsonData.account.lower20lvl.push({ "nickname": newNickname });
 
@@ -114,22 +174,9 @@ lowerNickname = jsonData.account.lower20lvl[1].nickname;
 
 
 console.log("Upper Level Nickname:", upperNickname);
-console.log("Lower Level Nickname:", lowerNickname);
-
-
-var countlover20acc = 0;
-const nicknameS = "clikedButtons";
-const time_char_lenght = 6;
-
-const sec = 1000;
-const minute = sec * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const year = day * 365;
-
-const d = new Date();
-
-$( document ).ready(function() {
+console.log("Lower Level Nickname:", lowerNickname);*/
+	
+	
 	gitkeyData = readCookie(GITkeyCookieName);
 	if(gitkeyData) {
 		$("#inputText").css("display", "none");
@@ -137,11 +184,13 @@ $( document ).ready(function() {
 	} else {
 		$("#resetkeybutton").css("display", "none");
 	}
+	
+	
 		
 	//setArray(nicknameS);
-
 	
-	//writeJSON(upper20lvlacc);
+	
+	
 	
 	//for (let i = 0; i < countlover20acc-1; i++)
 		//is_sellected.push(false);
@@ -150,22 +199,33 @@ $( document ).ready(function() {
 	//submitButtons();
 });
 
-function copyToClipboard(element, is_submit) {
+function copyToClipboard(element) {
 
-  var $temp = $("<input>");
-  $("body").append($temp);
-  $temp.val($(element).text()).select();
-  document.execCommand("copy");
-  $temp.remove();
+	var $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val($(element).text()).select();
+	document.execCommand("copy");
+	$temp.remove();
   
-  if (arguments.length == 1) {
-  var index = parseInt((element.substr(2, 3)));
-  console.log(index);
-  is_sellected[index] = is_sellected[index] ? false : true;
-  submitButtons(index);
-  submitArray(nicknameS, index);
-  }
+	
+	
+	
+
+	//var idletter = element.substr(1, 1);
+	//var index = parseInt((element.substr(2, 3)));
   
+}
+
+function setChange(index) {
+	if($('#h' + (index)).css('background-color') == 'rgb(255, 0, 0)') {
+		$('#h' + (index)).css('background-color', '');
+		jsonData.account.lower20lvl[index].lastplayhour = 0;
+	} else {
+		$('#h' + (index)).css('background-color', 'red');
+		jsonData.account.lower20lvl[index].lastplayhour = Math.round(d.getTime() / hour);
+	}
+	submitJSON();
+	
 }
 
 function generatePassword() {
@@ -188,94 +248,6 @@ function resetClickedButtons(sname) {
 		}
 		submitArray(nicknameS);
 	}
-}
-
-function submitArray(sname, index) {
-	var string;
-	if (arguments.length == 1) {
-		string = is_sellected[0] ? "1" + Math.round(d.getTime() / hour) : "0000000";
-		
-		for(let i = 1; i < countlover20acc; i++) {
-			if(is_sellected[i]) {
-				string = string + "1";
-				string = string + Math.round(d.getTime() / hour);
-			}
-			else
-				string = string + "0000000";
-			
-		}
-	} else {
-		string = is_sellected[0] ? "1": "0";
-		string += index ? getTimeFromIndex(sname, 0) : is_sellected[0] ? Math.round(d.getTime() / hour) : "000000";
-		for(let i = 1; i < countlover20acc; i++) {
-			string += is_sellected[i] ? "1" : "0";
-			if(i != index)
-				string += getTimeFromIndex(sname, i);
-			else {
-				string += is_sellected[index] ? Math.round(d.getTime() / hour) : "000000";
-			}
-		}
-	}
-	localStorage.setItem(sname, string);
-}
-
-function setArray(sname) {
-	let storage_text = localStorage.getItem(sname);
-	for(let i = 0; i < countlover20acc; i++)
-		if(storage_text.substr(i*7, 1) == "0")
-			is_sellected[i] = false;
-		else
-			is_sellected[i] = true;
-	
-}
-
-//alert(getTimeFromIndex(nicknameS, 11));
-
-function getTimeFromIndex(sname, index) {
-	return localStorage.getItem(sname).substring(index*7+1,(index+1)*7);
-}
-
-
-
-function buttonValidation() {
-	let is_change = 0;
-	let storage_text = localStorage.getItem(nicknameS);
-	string = parseInt(getTimeFromIndex(nicknameS, 0));
-	for(let i = 0; i < countlover20acc; i++) {
-		if(parseInt(getTimeFromIndex(nicknameS, i)) + 22 < Math.round(d.getTime() / hour)){
-			//alert(parseInt(getTimeFromIndex(nicknameS, i)) + 22 +" / "+ Math.round(d.getTime() / hour));
-			is_sellected[i] = false;
-			submitArray(nicknameS, i);
-			is_change++;
-		}
-	}
-	//alert(string);
-	if(is_change) 
-		submitButtons();
-	
-}
-
-function submitButtons(index) {
-	if (arguments.length == 1)
-		$('#h' + (index)).css('background-color', is_sellected[index]  ? 'red' : '');
-	else
-		for(let i = 0; i < countlover20acc; i++)
-			if(!is_sellected[i])
-				$('#h' + (i)).css('background-color', '');
-			else
-				$('#h' + (i)).css('background-color', 'red');
-}
-
-function getStorage() {
-	
-	let string = is_sellected[0] ? "1" : "0";
-		
-	for(let i = 1; i < countlover20acc; i++)
-		if(is_sellected[i])
-			string = string + "1";
-		else
-			string = string + "0";
-	alert(localStorage.getItem(nicknameS) + ' / ' + Math.round(d.getTime() / hour) + ' / ' + string);
 }
 
 function submitJSON() {
@@ -319,7 +291,7 @@ function uploadJSON(json_object, key) {
     someKey: 'çok seviyorum'
   };*/
 
-  //const token = 'ghp_k8TjLAS1OV0qEq2sefVZPvcSW4casUws1aqDaJ';
+  //const token = 'ghp_ıaıjdfıoahjıthfq3hıahgıahegıfhıaehgodebngo';
   var token = key;
   const repoOwner = 'KayaSrtl';
   const repoName = 'valohesapdata';
