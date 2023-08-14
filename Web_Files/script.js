@@ -20,23 +20,6 @@ const d = new Date();
 
 
 
-/*function fetching() {
-    const headers = new Headers();
-    //var apiKey = readCookie(GITkeyCookieName); // Replace with your actual GitHub API key
-    headers.append("Authorization", "Bearer " + apiKey);
-
-    fetch("https://api.github.com/repos/KayaSrtl/valohesapdata/contents/main/data.json", { headers })
-        .then(response => response.json())
-        .then(data => {
-            const content = data.content;
-            const decodedContent = atob(content);
-            const JSONDATA = JSON.parse(decodedContent);
-            
-            console.log(JSONDATA.length);
-            //writeJSON(JSONDATA);
-        })
-        .catch(error => console.log(error));
-}*/
 
 function fetching() {
     //const apiKey = "ghp_asdafadgsfgadfadsadasd"; // Replace with your actual GitHub API key
@@ -83,30 +66,28 @@ function listingAcc(JSONobj) {
 		$( '.all_nick_buttons').css("display", "none");
 	
 	for(let i = 0; i < JSONobj.account.lower20lvl.length; i++) {
-		if(!JSONobj.account.lower20lvl[i].isSold) {
-			if(index > 0) {
-				$( '#nick_button_' + (index - 1)).clone().appendTo( ".all_nick_buttons" ).prop('id', 'nick_button_' + index);
+		if(index > 0) {
+			$( '#nick_button_' + (index - 1)).clone().appendTo( ".all_nick_buttons" ).prop('id', 'nick_button_' + index);
 
-			}
-			//$('#nick_button_' + index + " .nick_button").text(JSONobj[i].nickname).attr('onclick','copyToClipboardPass(\'#h' + index + '\')').attr('id','h' + index);
-			//$('#nick_button_' + index + " .nick_button").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
-			$('#nick_button_' + index + " .nick_button").text(JSONobj.account.lower20lvl[i].nickname).attr('id','h' + index);
-			
-			$('#nick_button_' + index + " .nick_button_press_part_outer .nicktextlower20").text(JSONobj.account.lower20lvl[i].nickname).attr('id','ln' + index);
-			$('#nick_button_' + index + " .nick_button_press_part_outer .passtextlower20").text(JSONobj.account.lower20lvl[i].password).attr('id','lp' + index);
-			
-			$('#nick_button_' + index + " .nick_button_press_part_outer .deleteelementpart").attr('onclick','setChange(\'#ld' + index + '\')');
-			$('#nick_button_' + index + " .nick_button_press_part_outer .changecolorpart").attr('onclick','setChange(\'#lc' + index + '\')');
-			$('#nick_button_' + index + " .nick_button_press_part_outer .copynicknamepart").attr('onclick','setChange(\'#ln' + index + '\')');
-			$('#nick_button_' + index + " .nick_button_press_part_outer .copypasspart").attr('onclick','setChange(\'#lp' + index + '\')');
-			//$('#nick_button_' + index + " .nick_button_press_part_outer").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
-			if(JSONobj.account.lower20lvl[i].lastplayhour + 22 > Math.round(d.getTime() / hour))
-				$('#h' + (index)).css('background-color', 'red');
-			else
-				$('#h' + (index)).css('background-color', '');
-			//$('#nick_and_pass_button_' + index + " .pass_part").text(JSONobj[i].password).attr('onclick','copyToClipboardPass(\'#p' + index + '\')').attr('id','p' + index);
-			index++;
 		}
+		//$('#nick_button_' + index + " .nick_button").text(JSONobj[i].nickname).attr('onclick','copyToClipboardPass(\'#h' + index + '\')').attr('id','h' + index);
+		//$('#nick_button_' + index + " .nick_button").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
+		$('#nick_button_' + index + " .nick_button").text(JSONobj.account.lower20lvl[i].nickname).attr('id','h' + index);
+
+		$('#nick_button_' + index + " .nick_button_press_part_outer .nicktextlower20").text(JSONobj.account.lower20lvl[i].nickname).attr('id','ln' + index);
+		$('#nick_button_' + index + " .nick_button_press_part_outer .passtextlower20").text(JSONobj.account.lower20lvl[i].password).attr('id','lp' + index);
+
+		$('#nick_button_' + index + " .nick_button_press_part_outer .deleteelementpart").attr('onclick','setChange(\'#ld' + index + '\')');
+		$('#nick_button_' + index + " .nick_button_press_part_outer .changecolorpart").attr('onclick','setChange(\'#lc' + index + '\')');
+		$('#nick_button_' + index + " .nick_button_press_part_outer .copynicknamepart").attr('onclick','setChange(\'#ln' + index + '\')');
+		$('#nick_button_' + index + " .nick_button_press_part_outer .copypasspart").attr('onclick','setChange(\'#lp' + index + '\')');
+		//$('#nick_button_' + index + " .nick_button_press_part_outer").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
+		if(JSONobj.account.lower20lvl[i].lastplayhour + 22 > Math.round(d.getTime() / hour))
+			$('#h' + (index)).css('background-color', 'red');
+		else
+			$('#h' + (index)).css('background-color', '');
+		//$('#nick_and_pass_button_' + index + " .pass_part").text(JSONobj[i].password).attr('onclick','copyToClipboardPass(\'#p' + index + '\')').attr('id','p' + index);
+		index++;
 	}
 	
 	index = $( '.nick_and_pass_button').length;
@@ -121,22 +102,20 @@ function listingAcc(JSONobj) {
 		$( '.upper20_accounts').css("display", "none");
 	
 	for(let i = 0; i < JSONobj.account.upper20lvl.length; i++) {
-		if(!JSONobj.account.upper20lvl[i].isSold) {
-			if(index > 0) {
-				$( '#nick_and_pass_button_' + (index - 1)).clone().appendTo( ".upper20_accounts" ).prop('id', 'nick_and_pass_button_' + index);
+		if(index > 0) {
+			$( '#nick_and_pass_button_' + (index - 1)).clone().appendTo( ".upper20_accounts" ).prop('id', 'nick_and_pass_button_' + index);
 
-			}
-			$('#nick_and_pass_button_' + index + " .nick_button").text(JSONobj.account.upper20lvl[i].nickname).attr('id','u' + index);
-			
-			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .nicktextupper20").text(JSONobj.account.upper20lvl[i].nickname).attr('id','un' + index);
-			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .passtextupper20").text(JSONobj.account.upper20lvl[i].password).attr('id','up' + index);
-			
-			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .deleteelementpart").attr('onclick','setChange(\'#ud' + index + '\')');
-			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .changeupper20part").attr('onclick','setChange(\'#uc' + index + '\')');
-			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .copyupper20nicknamepart").attr('onclick','setChange(\'#un' + index + '\')');
-			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .copyupper20passpart").attr('onclick','setChange(\'#up' + index + '\')');
-			index++;
 		}
+		$('#nick_and_pass_button_' + index + " .nick_button").text(JSONobj.account.upper20lvl[i].nickname).attr('id','u' + index);
+
+		$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .nicktextupper20").text(JSONobj.account.upper20lvl[i].nickname).attr('id','un' + index);
+		$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .passtextupper20").text(JSONobj.account.upper20lvl[i].password).attr('id','up' + index);
+
+		$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .deleteelementpart").attr('onclick','setChange(\'#ud' + index + '\')');
+		$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .changeupper20part").attr('onclick','setChange(\'#uc' + index + '\')');
+		$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .copyupper20nicknamepart").attr('onclick','setChange(\'#un' + index + '\')');
+		$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .copyupper20passpart").attr('onclick','setChange(\'#up' + index + '\')');
+		index++;
 	}
 }
 
@@ -167,10 +146,20 @@ function listingAcc(JSONobj) {
 			"isSold": false,
 			"lastplayhour": 0
       }
+    ],
+	"sold": [
+      {
+		  	"nickname": "NicknameLowerLvl1",
+		  	"password": "PasswordLowerLvl1"
+	  },
+      {
+			"nickname": "NicknameLowerLvl2",
+			"password": "PasswordLowerLvl2"
+      }
     ]
   }
-};*/
-
+};
+*/
 
 
 
@@ -288,6 +277,7 @@ function editAccs() {
 		$(".nick_button_press_part_inner").css("width", "");
 		$(".changeupper20part").css("display", "");
 		$(".deleteelementpart").css("display", "");
+		$(".add_edit_account_outer").css("display", "");
 		
 	}
 	else {
@@ -324,8 +314,7 @@ function setChange(element) {
 	} else {
 		if(idletter == "lc") {
 			jsonData.account.upper20lvl.push({ "nickname": jsonData.account.lower20lvl[index].nickname,
-												"password": jsonData.account.lower20lvl[index].password,
-												"isSold": false
+												"password": jsonData.account.lower20lvl[index].password
 											 });
 			jsonData.account.lower20lvl.splice(index, 1);		
 			//var length = $( '.nick_and_pass_button').length;
@@ -337,7 +326,6 @@ function setChange(element) {
 		if(idletter == "uc") {
 			jsonData.account.lower20lvl.push({ "nickname": jsonData.account.upper20lvl[index].nickname,
 												"password": jsonData.account.upper20lvl[index].password,
-												"isSold": false,
 											    "lastplayhour": 0
 											 });
 			jsonData.account.upper20lvl.splice(index, 1);
@@ -348,17 +336,22 @@ function setChange(element) {
 			listingAcc(jsonData);
 		}
 		if(idletter == "ld") {
-			jsonData.account.lower20lvl[index].isSold = true;
+			jsonData.account.sold.push({ "nickname": jsonData.account.lower20lvl[index].nickname,
+									"password": jsonData.account.lower20lvl[index].password
+								 });
+			jsonData.account.lower20lvl.splice(index, 1);
 			listingAcc(jsonData);
 		}
 		
 		if(idletter == "ud") {
-			jsonData.account.upper20lvl[index].isSold = true;
+			jsonData.account.sold.push({ "nickname": jsonData.account.upper20lvl[index].nickname,
+									"password": jsonData.account.upper20lvl[index].password
+								 });
+			jsonData.account.upper20lvl.splice(index, 1);
 			listingAcc(jsonData);
 		}
 		
 		if(idletter == "un" || idletter == "up" || idletter == "ln" || idletter == "lp") {
-			$("#AddAccountBtnTxt").text("Cancel Adding");
 			$(".add_edit_account_outer").css("display", "flex");
 			current_editing_element_id = element;
 		}
@@ -366,13 +359,13 @@ function setChange(element) {
 		if(idletter == "un") {
 			$("#AccountNameInput").val("");
 			$("#AccountPassInput").val(jsonData.account.upper20lvl[index].password);
-			$(".Account_Adding_info").text("Old Nickname: " + jsonData.account.upper20lvl[index].name);
+			$(".Account_Adding_info").text("Old Nickname: " + jsonData.account.upper20lvl[index].nickname);
 			$("#AccountNameInput").focus();
 			$('#isUpper20checkbox').val('on');
 		}
 		
 		if(idletter == "up") {
-			$("#AccountNameInput").val(jsonData.account.upper20lvl[index].name);
+			$("#AccountNameInput").val(jsonData.account.upper20lvl[index].nickname);
 			$("#AccountPassInput").val("");
 			$(".Account_Adding_info").text("Old Password: " + jsonData.account.upper20lvl[index].password);
 			$("#AccountPassInput").focus();
@@ -382,13 +375,13 @@ function setChange(element) {
 		if(idletter == "ln") {
 			$("#AccountNameInput").val("");
 			$("#AccountPassInput").val(jsonData.account.lower20lvl[index].password);
-			$(".Account_Adding_info").text("Old Nickname: " + jsonData.account.lower20lvl[index].name);
+			$(".Account_Adding_info").text("Old Nickname: " + jsonData.account.lower20lvl[index].nickname);
 			$("#AccountNameInput").focus();
 			$('#isUpper20checkbox').val('off');
 		}
 		
 		if(idletter == "lp") {			
-			$("#AccountNameInput").val(jsonData.account.lower20lvl[index].name);
+			$("#AccountNameInput").val(jsonData.account.lower20lvl[index].nickname);
 			$("#AccountPassInput").val("");
 			$(".Account_Adding_info").text("Old Password: " + jsonData.account.lower20lvl[index].password);
 			$("#AccountPassInput").focus();
@@ -417,15 +410,6 @@ console.log("Lower Level Nickname:", lowerNickname);*/
 	
 }
 
-function changeNameAcc(element) {
-	var idletter = element.substr(1, 1);
-	var index = parseInt((element.substr(2, 3)));
-}
-
-function changePassAcc(element) {
-	var idletter = element.substr(1, 1);
-	var index = parseInt((element.substr(2, 3)));
-}
 
 
 function resetGITKey() {
@@ -450,29 +434,52 @@ function addNewAccount() {
 }
 
 function SubmitAccountAdding() {
+	var newAccName = $("#AccountNameInput").val();
+	var newAccPass = $("#AccountPassInput").val();
+	var isUpper20checkboxdata = $('#isUpper20checkbox').prop('checked');
 	if(isNewAccountAdding) {
-		var newAccName = $("#AccountNameInput").val();
-		var newAccPass = $("#AccountPassInput").val();
-		var isUpper20checkboxdata = $('#isUpper20checkbox').prop('checked');
+
 
 		if(newAccName&&newAccPass) {
 			if(isUpper20checkboxdata) {
 				jsonData.account.upper20lvl.push({ "nickname": newAccName,
-												"password": newAccPass,
-												"isSold": false
+												"password": newAccPass
 												 });
 
 			} else {
 				jsonData.account.lower20lvl.push({ "nickname": newAccName,
 											"password": newAccPass,
-											"isSold": false,
 											"lastplayhour": 0
 										 });
 			}
 			isNewAccountAdding = false;
 		}
 	} else {
-		//$(current_editing_element_id).
+		var index = parseInt((current_editing_element_id.substr(3, 6)));
+		var idletter = current_editing_element_id.substr(1, 2);
+		if(idletter == "un" || idletter == "up") {
+			if(isUpper20checkboxdata) {
+				jsonData.account.upper20lvl[index].nickname = newAccName;
+				jsonData.account.upper20lvl[index].password = newAccPass;
+			} else {
+				jsonData.account.upper20lvl.splice(index, 1);
+				jsonData.account.lower20lvl.push({ "nickname": newAccName,
+											"password": newAccPass,
+											"lastplayhour": 0
+										 });
+				
+			}
+		} else {
+			if(isUpper20checkboxdata) {
+				jsonData.account.lower20lvl.splice(index, 1);
+				jsonData.account.upper20lvl.push({ "nickname": newAccName,
+											"password": newAccPass
+										 });
+			} else {
+				jsonData.account.lower20lvl[index].nickname = newAccName;
+				jsonData.account.lower20lvl[index].password = newAccPass;
+			}
+		}
 	}
 	$("#AddAccountBtnTxt").text("Add Account");
 	$(".add_edit_account_outer").css("display", "");
