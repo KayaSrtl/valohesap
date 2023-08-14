@@ -325,6 +325,59 @@ body {
   outline: none;
 }
 
+.all_nick_buttons {
+	display: flex;
+	height: 62px;
+}
+
+.nick_button_div {
+}
+
+.nick_button_press_part_outer {
+	position: relative;
+	height: 62px;
+	width: 100%;
+	top: -62px;
+	display: flex;
+}
+
+
+.nick_button_press_part_inner {
+	height: 62px;
+	width: 33.3%;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+	
+}
+
+.changecolorpart {
+	background-color: rgb(255 0 0 / 22%);
+}
+
+.changecolorpart:hover {
+	background-color: rgb(255 0 0 / 50%);
+}
+
+.copynicknamepart {
+	background-color: rgba(57,215,255,0.16);
+}
+.copynicknamepart:hover {
+	background-color: rgba(57,215,255,0.50);
+}
+
+.copypasspart {
+	background-color: rgba(31,167,25,0.17);
+	
+}
+.copypasspart:hover {
+	background-color: rgba(31,167,25,0.50);
+}
+
+.lower20icons {
+	font-size: 40px;
+}
 
 .nick_main_div {
 	padding-bottom: 40px;
