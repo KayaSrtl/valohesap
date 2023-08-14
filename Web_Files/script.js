@@ -5,7 +5,10 @@ const is_sellected = [false];
 var countlover20acc = 0;
 const nicknameS = "clikedButtons";
 const time_char_lenght = 6;
-var jsonData;
+var jsonData = [];
+var isEditing = false;
+var isNewAccountAdding = false;
+var current_editing_element_id;
 
 const sec = 1000;
 const minute = sec * 60;
@@ -68,7 +71,16 @@ function fetching() {
 
 	
 function listingAcc(JSONobj) {
-	var index = 0;
+	var index = $( '.nick_button_div').length;
+	for(let i = 1; i < index; i++)
+		$("#nick_button_" + i).remove();
+	
+	index = 0;
+	
+	if(JSONobj.account.lower20lvl.length)
+		$( '.all_nick_buttons').css("display", "");
+	else
+		$( '.all_nick_buttons').css("display", "none");
 	
 	for(let i = 0; i < JSONobj.account.lower20lvl.length; i++) {
 		if(!JSONobj.account.lower20lvl[i].isSold) {
@@ -77,14 +89,16 @@ function listingAcc(JSONobj) {
 
 			}
 			//$('#nick_button_' + index + " .nick_button").text(JSONobj[i].nickname).attr('onclick','copyToClipboardPass(\'#h' + index + '\')').attr('id','h' + index);
-			$('#nick_button_' + index + " .nick_button").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
+			//$('#nick_button_' + index + " .nick_button").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
+			$('#nick_button_' + index + " .nick_button").text(JSONobj.account.lower20lvl[i].nickname).attr('id','h' + index);
 			
-			$('#nick_button_' + index + " .nick_button_press_part_outer .changecolorpart").attr('onclick','setChange(' + index + ')');
 			$('#nick_button_' + index + " .nick_button_press_part_outer .nicktextlower20").text(JSONobj.account.lower20lvl[i].nickname).attr('id','ln' + index);
 			$('#nick_button_' + index + " .nick_button_press_part_outer .passtextlower20").text(JSONobj.account.lower20lvl[i].password).attr('id','lp' + index);
 			
-			$('#nick_button_' + index + " .nick_button_press_part_outer .copynicknamepart").attr('onclick','copyToClipboard(\'#ln' + index + '\')');
-			$('#nick_button_' + index + " .nick_button_press_part_outer .copypasspart").attr('onclick','copyToClipboard(\'#lp' + index + '\')');
+			$('#nick_button_' + index + " .nick_button_press_part_outer .deleteelementpart").attr('onclick','setChange(\'#ld' + index + '\')');
+			$('#nick_button_' + index + " .nick_button_press_part_outer .changecolorpart").attr('onclick','setChange(\'#lc' + index + '\')');
+			$('#nick_button_' + index + " .nick_button_press_part_outer .copynicknamepart").attr('onclick','setChange(\'#ln' + index + '\')');
+			$('#nick_button_' + index + " .nick_button_press_part_outer .copypasspart").attr('onclick','setChange(\'#lp' + index + '\')');
 			//$('#nick_button_' + index + " .nick_button_press_part_outer").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
 			if(JSONobj.account.lower20lvl[i].lastplayhour + 22 > Math.round(d.getTime() / hour))
 				$('#h' + (index)).css('background-color', 'red');
@@ -95,7 +109,16 @@ function listingAcc(JSONobj) {
 		}
 	}
 	
+	index = $( '.nick_and_pass_button').length;
+	for(let i = 1; i < index; i++)
+		$("#nick_and_pass_button_" + i).remove();
+	
 	index = 0;
+	
+	if(JSONobj.account.upper20lvl.length)
+		$( '.upper20_accounts').css("display", "");
+	else
+		$( '.upper20_accounts').css("display", "none");
 	
 	for(let i = 0; i < JSONobj.account.upper20lvl.length; i++) {
 		if(!JSONobj.account.upper20lvl[i].isSold) {
@@ -103,8 +126,15 @@ function listingAcc(JSONobj) {
 				$( '#nick_and_pass_button_' + (index - 1)).clone().appendTo( ".upper20_accounts" ).prop('id', 'nick_and_pass_button_' + index);
 
 			}
-			$('#nick_and_pass_button_' + index + " .nick_part").text(JSONobj.account.upper20lvl[i].nickname).attr('onclick','copyToClipboard(\'#m' + index + '\')').attr('id','m' + index);
-			$('#nick_and_pass_button_' + index + " .pass_part").text(JSONobj.account.upper20lvl[i].password).attr('onclick','copyToClipboard(\'#p' + index + '\')').attr('id','p' + index);
+			$('#nick_and_pass_button_' + index + " .nick_button").text(JSONobj.account.upper20lvl[i].nickname).attr('id','u' + index);
+			
+			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .nicktextupper20").text(JSONobj.account.upper20lvl[i].nickname).attr('id','un' + index);
+			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .passtextupper20").text(JSONobj.account.upper20lvl[i].password).attr('id','up' + index);
+			
+			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .deleteelementpart").attr('onclick','setChange(\'#ud' + index + '\')');
+			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .changeupper20part").attr('onclick','setChange(\'#uc' + index + '\')');
+			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .copyupper20nicknamepart").attr('onclick','setChange(\'#un' + index + '\')');
+			$('#nick_and_pass_button_' + index + " .upper20_button_press_part_outer .copyupper20passpart").attr('onclick','setChange(\'#up' + index + '\')');
 			index++;
 		}
 	}
@@ -140,10 +170,6 @@ function listingAcc(JSONobj) {
     ]
   }
 };*/
-
-
-
-
 
 
 
@@ -216,17 +242,7 @@ function copyToClipboard(element) {
   
 }
 
-function setChange(index) {
-	if($('#h' + (index)).css('background-color') == 'rgb(255, 0, 0)') {
-		$('#h' + (index)).css('background-color', '');
-		jsonData.account.lower20lvl[index].lastplayhour = 0;
-	} else {
-		$('#h' + (index)).css('background-color', 'red');
-		jsonData.account.lower20lvl[index].lastplayhour = Math.round(d.getTime() / hour);
-	}
-	submitJSON();
-	
-}
+
 
 function generatePassword() {
     var length = 10,
@@ -240,13 +256,12 @@ function generatePassword() {
 	copyToClipboard('#s31');
 }
 
-function resetClickedButtons(sname) {
+function resetClickedButtons() {
 	if (confirm("Are you sure to reset all buttons?") == true) {
-		for (let i = 0; i < countlover20acc; i++) {
-			is_sellected[i] = false;
-			$('#h' + (i + 1)).css('background-color', '');
+		for (let i = 0; i < jsonData.account.lower20lvl.length; i++) {
+			jsonData.account.lower20lvl[i].lastplayhour = 0;
+			$('#h' + (i)).css('background-color', '');
 		}
-		submitArray(nicknameS);
 	}
 }
 
@@ -266,13 +281,205 @@ function submitJSON() {
 }
 
 
+function editAccs() {
+	if(isEditing) {
+		$("#editAccText").text("Edit");
+		$(".upper20_button_press_part_inner").css("width", "");
+		$(".nick_button_press_part_inner").css("width", "");
+		$(".changeupper20part").css("display", "");
+		$(".deleteelementpart").css("display", "");
+		
+	}
+	else {
+		$("#editAccText").text("Finish Editing");
+		$(".upper20_button_press_part_inner").css("width", "25%");
+		$(".nick_button_press_part_inner").css("width", "25%");
+		$(".changeupper20part").css("display", "flex");
+		$(".deleteelementpart").css("display", "flex");
+		
+	}
+	
+	
+	isEditing = !isEditing;
+}
+
+
+function setChange(element) {
+	var index = parseInt((element.substr(3, 6)));
+	var idletter = element.substr(1, 2);
+	if(!isEditing) {
+		if(idletter == "lc") {
+			if($('#h' + (index)).css('background-color') == 'rgb(255, 0, 0)') {
+				$('#h' + (index)).css('background-color', '');
+				jsonData.account.lower20lvl[index].lastplayhour = 0;
+			} else {
+				$('#h' + (index)).css('background-color', 'red');
+				jsonData.account.lower20lvl[index].lastplayhour = Math.round(d.getTime() / hour);
+			}
+			submitJSON();
+		} else {
+			copyToClipboard(element);
+		}
+
+	} else {
+		if(idletter == "lc") {
+			jsonData.account.upper20lvl.push({ "nickname": jsonData.account.lower20lvl[index].nickname,
+												"password": jsonData.account.lower20lvl[index].password,
+												"isSold": false
+											 });
+			jsonData.account.lower20lvl.splice(index, 1);		
+			//var length = $( '.nick_and_pass_button').length;
+			//$( '#nick_and_pass_button_' + (length - 1)).clone().appendTo( ".upper20_accounts" ).prop('id', 'nick_and_pass_button_' + length);
+			//$("#nick_button_" + index).remove();
+			//$( '#nick_and_pass_button_' + (0)).clone().appendTo( ".upper20_accounts" ).prop('id', 'nick_and_pass_button_' + 2);
+			listingAcc(jsonData);
+		}
+		if(idletter == "uc") {
+			jsonData.account.lower20lvl.push({ "nickname": jsonData.account.upper20lvl[index].nickname,
+												"password": jsonData.account.upper20lvl[index].password,
+												"isSold": false,
+											    "lastplayhour": 0
+											 });
+			jsonData.account.upper20lvl.splice(index, 1);
+			var length = $( '.all_nick_buttons').length;
+			//$( '#nick_button_' + (length - 1)).clone().appendTo( ".all_nick_buttons" ).prop('id', 'nick_button_' + length);
+			//$("#nick_and_pass_button_" + index).remove();
+			//console.log('#nick_button_' + (jsonData.account.lower20lvl.length - 1));
+			listingAcc(jsonData);
+		}
+		if(idletter == "ld") {
+			jsonData.account.lower20lvl[index].isSold = true;
+			listingAcc(jsonData);
+		}
+		
+		if(idletter == "ud") {
+			jsonData.account.upper20lvl[index].isSold = true;
+			listingAcc(jsonData);
+		}
+		
+		if(idletter == "un" || idletter == "up" || idletter == "ln" || idletter == "lp") {
+			$("#AddAccountBtnTxt").text("Cancel Adding");
+			$(".add_edit_account_outer").css("display", "flex");
+			current_editing_element_id = element;
+		}
+		
+		if(idletter == "un") {
+			$("#AccountNameInput").val("");
+			$("#AccountPassInput").val(jsonData.account.upper20lvl[index].password);
+			$(".Account_Adding_info").text("Old Nickname: " + jsonData.account.upper20lvl[index].name);
+			$("#AccountNameInput").focus();
+			$('#isUpper20checkbox').val('on');
+		}
+		
+		if(idletter == "up") {
+			$("#AccountNameInput").val(jsonData.account.upper20lvl[index].name);
+			$("#AccountPassInput").val("");
+			$(".Account_Adding_info").text("Old Password: " + jsonData.account.upper20lvl[index].password);
+			$("#AccountPassInput").focus();
+			$('#isUpper20checkbox').val('on');
+		}
+		
+		if(idletter == "ln") {
+			$("#AccountNameInput").val("");
+			$("#AccountPassInput").val(jsonData.account.lower20lvl[index].password);
+			$(".Account_Adding_info").text("Old Nickname: " + jsonData.account.lower20lvl[index].name);
+			$("#AccountNameInput").focus();
+			$('#isUpper20checkbox').val('off');
+		}
+		
+		if(idletter == "lp") {			
+			$("#AccountNameInput").val(jsonData.account.lower20lvl[index].name);
+			$("#AccountPassInput").val("");
+			$(".Account_Adding_info").text("Old Password: " + jsonData.account.lower20lvl[index].password);
+			$("#AccountPassInput").focus();
+			$('#isUpper20checkbox').val('off');
+		}
+			/*const newNickname = "NewNickname";
+jsonData.account.upper20lvl.push({ "nickname": newNickname });
+jsonData.account.lower20lvl.push({ "nickname": newNickname });
+
+var upperNickname = jsonData.account.upper20lvl[2].nickname;
+var lowerNickname = jsonData.account.lower20lvl[2].nickname;
+
+console.log("Upper Level Nickname:", upperNickname);
+console.log("Lower Level Nickname:", lowerNickname);
+
+jsonData.account.upper20lvl.splice(jsonData.account.upper20lvl.length - 1, 1);
+jsonData.account.lower20lvl.splice(jsonData.account.lower20lvl.length - 1, 1);
+
+upperNickname = jsonData.account.upper20lvl[1].nickname;
+lowerNickname = jsonData.account.lower20lvl[1].nickname;
+
+
+console.log("Upper Level Nickname:", upperNickname);
+console.log("Lower Level Nickname:", lowerNickname);*/
+	}
+	
+}
+
+function changeNameAcc(element) {
+	var idletter = element.substr(1, 1);
+	var index = parseInt((element.substr(2, 3)));
+}
+
+function changePassAcc(element) {
+	var idletter = element.substr(1, 1);
+	var index = parseInt((element.substr(2, 3)));
+}
+
+
 function resetGITKey() {
 	deleteCookie(GITkeyCookieName);
 	$("#inputText").css("display", "unset");
 	$("#resetkeybutton").css("display", "none");
 }
 
-//setInterval(buttonValidation, 5000);
+
+function addNewAccount() {
+	if(isNewAccountAdding) {
+		$("#AddAccountBtnTxt").text("Add Account");
+		$(".add_edit_account_outer").css("display", "");
+		
+	}
+	else {
+		$("#AddAccountBtnTxt").text("Cancel Adding");
+		$(".add_edit_account_outer").css("display", "flex");
+		$(".Account_Adding_info").text("Add Account");
+	}
+	isNewAccountAdding = !isNewAccountAdding;
+}
+
+function SubmitAccountAdding() {
+	if(isNewAccountAdding) {
+		var newAccName = $("#AccountNameInput").val();
+		var newAccPass = $("#AccountPassInput").val();
+		var isUpper20checkboxdata = $('#isUpper20checkbox').prop('checked');
+
+		if(newAccName&&newAccPass) {
+			if(isUpper20checkboxdata) {
+				jsonData.account.upper20lvl.push({ "nickname": newAccName,
+												"password": newAccPass,
+												"isSold": false
+												 });
+
+			} else {
+				jsonData.account.lower20lvl.push({ "nickname": newAccName,
+											"password": newAccPass,
+											"isSold": false,
+											"lastplayhour": 0
+										 });
+			}
+			isNewAccountAdding = false;
+		}
+	} else {
+		//$(current_editing_element_id).
+	}
+	$("#AddAccountBtnTxt").text("Add Account");
+	$(".add_edit_account_outer").css("display", "");
+	listingAcc(jsonData);
+}
+
+//setInterval({listingAcc(jsonData);}, 5000);
 
 //Math.round(d.getTime() / hour)
 
