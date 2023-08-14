@@ -9,6 +9,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="Web_Files/valo_icon.ico" />
 <link rel="stylesheet" href="Web_Files/style.css">
 <script src="Web_Files/script.js"></script>
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css" crossorigin="anonymous">
 <style>
 
 body {
@@ -123,12 +124,26 @@ color: black !important;
 		</button>
 
 		<div class="all_nick_buttons">
-			<div class="nick_button_div" id="nick_button_0"><button onclick="copyToClipboard('#h0')" class="nick_button" id="h0">nickname</button></div>
+			<div class="nick_button_div" id="nick_button_0"><button class="nick_button" id="h0">nickname</button>
+				<div class="nick_button_press_part_outer">
+					<p id="ln0" style="display: none;" class="nicktextlower20">nickname</p>
+					<p id="lp0" style="display: none;" class="passtextlower20">password</p>
+					<div class="nick_button_press_part_inner changecolorpart" onclick="setChange(0)">
+						<i class="fa-solid fa-arrows-retweet lower20icons"></i>
+					</div>
+					<div class="nick_button_press_part_inner copynicknamepart" onclick="copyToClipboard('#ln0')">
+						<i class="fa-solid fa-user lower20icons"></i>
+					</div>
+					<div class="nick_button_press_part_inner copypasspart" onclick="copyToClipboard('#lp0')">
+						<i class="fa-regular fa-key-skeleton lower20icons"></i>
+					</div>
+				</div>
+			</div>
 
 
 		</div>
 
-		<h2 style="clear:both">Hesap şifresi</h2>	
+		<h2 style="clear:both">Hesap şifresi</h2>
 		<p id="s1" class="password">şifre</p>
 		<button onclick="copyToClipboardPass('#s1')" class="password_button">Şifreyi Kopyala(şifre)</button>
 
@@ -169,7 +184,7 @@ color: black !important;
 				//document.write("<div class=\"nick_button_div\"><button onclick=\"copyToClipboard('#m" + (i + 1) + "', 'true')\" class=\"nick_button\" id=\"m" + (i + 1) + "\">" + nickname20lvl[i - nickname.length] + "</button></div>");
 			}
 		</script>-->
-		<div class="nick_and_pass_button" id="nick_and_pass_button_0"><div class="nick_part" onclick="copyToClipboardPass('#m0')" id="m0">ka</div><div class="pass_part" onclick="copyToClipboardPass('#p0')" id="p0">denemesifre</div></div>
+		<div class="nick_and_pass_button" id="nick_and_pass_button_0"><div class="nick_part" onclick="copyToClipboard('#m0')" id="m0">ka</div><div class="pass_part" onclick="copyToClipboard('#p0')" id="p0">denemesifre</div></div>
 		</div>
 		<style>
 			.upper20_accounts {
