@@ -353,6 +353,7 @@ body {
 
 .nick_button_div {
 	    height: 62px;
+	border: 20px #278A0F;
 }
 
 .nick_button_press_part_outer {
@@ -407,7 +408,7 @@ body {
 }
 
 .lower20icons {
-	font-size: 32px;
+	font-size: 25px;
 }
 
 .nick_main_div {
