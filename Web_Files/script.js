@@ -487,6 +487,7 @@ function SubmitAccountAdding() {
 }
 
 //setInterval({listingAcc(jsonData);}, 5000);
+setInterval(function() {listingAcc(jsonData)}, 100000);
 
 //Math.round(d.getTime() / hour)
 
