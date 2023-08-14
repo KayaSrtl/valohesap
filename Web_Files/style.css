@@ -347,10 +347,12 @@ body {
 
 .all_nick_buttons {
 	display: flex;
-	height: 62px;
+	    position: relative;
+    flex-wrap: wrap;
 }
 
 .nick_button_div {
+	    height: 62px;
 }
 
 .nick_button_press_part_outer {
