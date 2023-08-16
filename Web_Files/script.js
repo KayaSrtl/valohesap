@@ -82,7 +82,7 @@ function listingAcc(JSONobj) {
 		$('#nick_button_' + index + " .nick_button_press_part_outer .copynicknamepart").attr('onclick','setChange(\'#ln' + index + '\')');
 		$('#nick_button_' + index + " .nick_button_press_part_outer .copypasspart").attr('onclick','setChange(\'#lp' + index + '\')');
 		//$('#nick_button_' + index + " .nick_button_press_part_outer").text(JSONobj.account.lower20lvl[i].nickname).attr('onclick','copyToClipboard(\'#h' + index + '\')').attr('id','h' + index);
-		if(JSONobj.account.lower20lvl[i].lastplayhour + 22 > Math.round(d.getTime() / hour))
+		if(JSONobj.account.lower20lvl[i].lastplayhour + 23 > Math.round(d.getTime() / hour))
 			$('#h' + (index)).css('background-color', 'red');
 		else
 			$('#h' + (index)).css('background-color', '');
@@ -231,7 +231,11 @@ function copyToClipboard(element) {
   
 }
 
-
+function copyRandPass() {
+	let retVal = generatePassword();
+	document.getElementById("s31").innerHTML = retVal;
+	copyToClipboard('#s31');
+}
 
 function generatePassword() {
     var length = 10,
@@ -241,8 +245,7 @@ function generatePassword() {
     for (var i = 0, n = charset.length; i < length; ++i) {
         retVal += charset.charAt(Math.floor(Math.random() * n));
     }
-	document.getElementById("s31").innerHTML = retVal;
-	copyToClipboard('#s31');
+	return retVal;
 }
 
 function resetClickedButtons() {
@@ -262,10 +265,12 @@ function submitJSON() {
 		var inputData = inputElement.value;
 		gitkeyData = inputData;
 		setCookie(GITkeyCookieName, inputData, 300);
+
+	} else {
+		uploadJSON(jsonData, gitkeyData);
 	}
 		
-	console.log(gitkeyData);
-	uploadJSON(jsonData, gitkeyData);
+
 		
 }
 
@@ -379,7 +384,7 @@ function setChange(element) {
 			$("#AccountNameInput").focus();
 			$('#isUpper20checkbox').val('off');
 		}
-		
+		//valorush01
 		if(idletter == "lp") {			
 			$("#AccountNameInput").val(jsonData.account.lower20lvl[index].nickname);
 			$("#AccountPassInput").val("");
@@ -429,6 +434,7 @@ function addNewAccount() {
 		$("#AddAccountBtnTxt").text("Cancel Adding");
 		$(".add_edit_account_outer").css("display", "flex");
 		$(".Account_Adding_info").text("Add Account");
+		$("#AccountPassInput").val(generatePassword());
 	}
 	isNewAccountAdding = !isNewAccountAdding;
 }
