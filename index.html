@@ -80,6 +80,12 @@ color: black !important;
 		<p>Password: </p>
 	 	<input type="text" id="AccountPassInput">
 		<div><input type="checkbox" id="isUpper20checkbox" name="isUpper20" value="accountlevel"><label for="accountlevel"> Upper 20 Level</label></div>
+		<div class="accTypeSelection">
+			<div>Lower 20</div>
+			<div>Upper 20</div>
+			<div>Black Market</div>
+			<div>Sold</div>
+		</div>
 	</div>
 	<button class="" onclick="SubmitAccountAdding()">Submit</button>
 </div>
@@ -91,7 +97,7 @@ color: black !important;
 				Reset Buttons
 			</span>
 		</button>
-		<button class="button-82-pushable" role="button" onclick="generatePassword()">
+		<button class="button-82-pushable" role="button" onclick="copyRandPass()">
 			<span class="button-82-shadow"></span>
 			<span class="button-82-edge"></span>
 			<span class="button-82-front text">
